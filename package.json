@@ -1,0 +1,33 @@
+{
+  "name": "file_renderer_experiment",
+  "version": "1.0.0",
+  "description": "a react custom renerer for files and folders",
+  "main": "index.js",
+  "dependencies": {
+    "babel-preset-env": "^1.7.0",
+    "babel-preset-react": "^6.24.1",
+    "babel-preset-stage-0": "^6.24.1",
+    "babel-register": "^6.26.0",
+    "chokidar": "^2.0.4",
+    "deep-diff": "^1.0.2",
+    "fs-extra": "^7.0.1",
+    "react": "16.5.2",
+    "react-reconciler": "0.15.0",
+    "rimraf": "^2.6.2",
+    "shortid": "^2.2.14"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/oneto018/file_renderer_experiment.git"
+  },
+  "author": "Nagarajan <oneto018@gmail.com>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/oneto018/file_renderer_experiment/issues"
+  },
+  "homepage": "https://github.com/oneto018/file_renderer_experiment#readme"
+}

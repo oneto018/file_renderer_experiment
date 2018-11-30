@@ -36,14 +36,22 @@ const hostConfig = {
 	},
 	prepareUpdate(domElement, type, oldProps,newProps){
 		var args = [arguments[0],arguments[1],arguments[2],arguments[3]]
-		
-	   var df =  diff(oldProps,newProps);
-	   console.log('prepareUpdate',{domElement,type,newProps,df});
+
+		var oldPropsCloned = {...oldProps};
+		var newPropsCloned = {...newProps};
+		if(type !=='file'){
+			delete oldPropsCloned.children;
+			delete newPropsCloned.children;
+		}
+	   	var df =  diff(oldPropsCloned,newPropsCloned);
+	   	console.log('prepareUpdate',{domElement,type,newProps,df});
 	   return df;
 
 	},
 	commitUpdate(domElement, updatePayload, type, oldProps, newProps) {
-		var diffObj = diff(oldProps,newProps);
+		var {children,...restOldProps} = oldProps;
+		var {children,...restNewProps} = newProps;
+		var diffObj = diff(restOldProps,restNewProps);
 		var name = domElement.props.name;
 		var type = domElement.type;
 		if(type=='file'){

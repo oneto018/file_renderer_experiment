@@ -1,5 +1,4 @@
 start.bat
 watch.sh
 tmp/*
-wd/*
 node_modules/
