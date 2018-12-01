@@ -1,7 +1,19 @@
-import React,{Component} from 'react';
+import React,{Component,useState} from 'react';
 
 const Folder="folder",File = 'file';
 
+const AnotherComponent = () => {
+	const [content,setContent] = useState("initialContent");
+
+	return (<Folder name="testWithHooks">
+				<File name="file1" onChange={(content)=> setContent(content)}>
+					{content}
+				</File>
+				<File name="file2" onChange={(content)=> setContent(content)}>
+					{content}
+				</File>
+		</Folder>)
+};
 
 
 export default class App extends Component{
@@ -40,7 +52,7 @@ export default class App extends Component{
 				<File name="child1">some text content</File>
 				<File name="child2"></File>
 				<Folder name="cp">
-
+					<AnotherComponent />
 					<File name="cpc1">{x}</File>
 					<File name="cpc2" onChange={this.change}>{mirrorContent}</File>
 					<File name="mirrored">{mirrorContent}</File>

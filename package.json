@@ -12,7 +12,7 @@
     "chokidar": "^2.0.4",
     "deep-diff": "^1.0.2",
     "fs-extra": "^7.0.1",
-    "react": "16.6",
+    "react": "^16.7.0-alpha.2",
     "react-reconciler": "0.15.0",
     "regenerator-runtime": "^0.13.1",
     "rimraf": "^2.6.2",
