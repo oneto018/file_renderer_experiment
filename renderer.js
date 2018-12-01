@@ -5,6 +5,7 @@ import util from 'util';
 import fs from 'fs';
 import rimraf from 'rimraf';
 import appendChild from './appendChild';
+import {basename,dirname} from 'path';
 
 const rootHostContext = {};
 
@@ -35,7 +36,7 @@ const hostConfig = {
 		console.log('appendChildToContainer',{parent,child});
 	},
 	prepareUpdate(element, type, oldProps,newProps){
-		var args = [arguments[0],arguments[1],arguments[2],arguments[3]]
+		//var args = [arguments[0],arguments[1],arguments[2],arguments[3]]
 
 		var oldPropsCloned = {...oldProps};
 		var newPropsCloned = {...newProps};
@@ -44,23 +45,28 @@ const hostConfig = {
 			delete newPropsCloned.children;
 		}
 	   	var df =  diff(oldPropsCloned,newPropsCloned);
-	   	if(df){
-	   		console.log('prepareUpdate',{element,type,newProps,df});
-	   	}
+	   
+	   	console.log('prepareUpdate',{diff:df});
+	 
 	   return df;
 
 	},
 	commitUpdate(element, updatePayload, type, oldProps, newProps) {
 		var {children,...restOldProps} = oldProps;
 		var {children,...restNewProps} = newProps;
-		var diffObj = diff(restOldProps,restNewProps);
 		var name = element.props.name;
 		var type = element.type;
-		if(type=='file'){
-			fs.writeFileSync(element.realPath,newProps.children||"");
+		for(let update of updatePayload){
+			if(update.path=='children' && type=='file'){
+				fs.writeFileSync(element.realPath,newProps.children||"");
+			} else if(update.path=='name'){
+				console.log('element',element);
+				//fs.renameSync(element.realPath,`${dirname(element.realPath)}/${update.rhs}`);
+			}
 		}
+		
 		//console.log('commit update arguments',arguments);
-		console.log('commitUpdate',util.inspect({name,type,updatePayload,type,diffObj},{depth:null,colors:true}));
+		console.log('commitUpdate',util.inspect({name,type,updatePayload,type},{depth:null,colors:true}));
 	},
   commitTextUpdate(textInstance, oldText, newText) {
     console.log('commitTextUpdate',{textInstance,oldText,newText});

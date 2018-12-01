@@ -10,7 +10,7 @@ export default class App extends Component{
 		this.state = {
 			x:1,
 			fls:[1,2,3],
-			mirrorContent:"",
+			mirrorContent:"x",
 			nestedList:[]
 		};
 
@@ -22,10 +22,10 @@ export default class App extends Component{
 			this.setState({nestedList:['a']});
 		},7000);	
 
-		// setTimeout(()=>{
-		// 	console.log('2nd cycle -------------------------------------------------------------------------->')
-		// 	this.setState({nestedList:[]});
-		// },14000);
+		setTimeout(()=>{
+			console.log('2nd cycle -------------------------------------------------------------------------->')
+			this.setState({nestedList:[]});
+		},14000);
 	}
 
 	change = (data) => {
@@ -42,11 +42,11 @@ export default class App extends Component{
 				<Folder name="cp">
 
 					<File name="cpc1">{x}</File>
-					<File name="cpc2" onChange={this.change}></File>
+					<File name="cpc2" onChange={this.change}>{mirrorContent}</File>
 					<File name="mirrored">{mirrorContent}</File>
 				</Folder>
 				<Folder name="lst">
-					{fls.map(x => <File key={x} name={x}>{x}</File>)}
+					{fls.map(x => <File name={x}>{x}</File>)}
 
 				</Folder>
 				<Folder name="lst2">
