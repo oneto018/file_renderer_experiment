@@ -8,15 +8,20 @@
     "babel-preset-react": "^6.24.1",
     "babel-preset-stage-0": "^6.24.1",
     "babel-register": "^6.26.0",
+    "bluebird": "^3.5.3",
     "chokidar": "^2.0.4",
     "deep-diff": "^1.0.2",
     "fs-extra": "^7.0.1",
     "react": "16.5.2",
     "react-reconciler": "0.15.0",
+    "regenerator-runtime": "^0.13.1",
     "rimraf": "^2.6.2",
-    "shortid": "^2.2.14"
+    "shortid": "^2.2.14",
+    "taffy": "^2.6.2"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "babel-plugin-transform-runtime": "^6.23.0"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },

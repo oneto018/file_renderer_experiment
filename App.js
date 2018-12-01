@@ -7,15 +7,25 @@ const Folder="folder",File = 'file';
 export default class App extends Component{
 	constructor(props) {
 		super(props);
-		this.state = {x:1,fls:[1,2,3],mirrorContent:""};
+		this.state = {
+			x:1,
+			fls:[1,2,3],
+			mirrorContent:"",
+			nestedList:[]
+		};
 
 	}
 		
 	componentDidMount() {
 		setTimeout(()=>{
-			console.log('setting state');
-			this.setState({x:this.state.x+1,fls:[1,3]});
+			console.log('setting state --------------------------------------------------->');
+			this.setState({nestedList:['a']});
 		},7000);	
+
+		// setTimeout(()=>{
+		// 	console.log('2nd cycle -------------------------------------------------------------------------->')
+		// 	this.setState({nestedList:[]});
+		// },14000);
 	}
 
 	change = (data) => {
@@ -24,7 +34,7 @@ export default class App extends Component{
 	} 
 
 	render() {
-		var {x,fls,mirrorContent} = this.state;
+		var {x,fls,mirrorContent,nestedList} = this.state;
 		return (
 			<Folder name="parent">
 				<File name="child1">some text content</File>
@@ -38,6 +48,12 @@ export default class App extends Component{
 				<Folder name="lst">
 					{fls.map(x => <File key={x} name={x}>{x}</File>)}
 
+				</Folder>
+				<Folder name="lst2">
+
+					{nestedList.map(x => (<Folder key={x} name={x}>
+											<File name={x}>{x}</File>
+										</Folder>))}
 				</Folder>
 			</Folder>
 			

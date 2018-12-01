@@ -25,16 +25,16 @@ const hostConfig = {
 	createTextInstance: (text ) => {
 		return text;
 	},
-	appendInitialChild:appendChild,
+	appendInitialChild:appendChild("initial"),
 
-	finalizeInitialChildren: (domElement, type, props) => {
-		console.log('finalize inital children',{domElement,type,props});
+	finalizeInitialChildren: (element, type, props) => {
+		console.log('finalize inital children',{element,type,props});
 	},
 	supportsMutation: true,
 	appendChildToContainer :(parent, child) =>{
 		console.log('appendChildToContainer',{parent,child});
 	},
-	prepareUpdate(domElement, type, oldProps,newProps){
+	prepareUpdate(element, type, oldProps,newProps){
 		var args = [arguments[0],arguments[1],arguments[2],arguments[3]]
 
 		var oldPropsCloned = {...oldProps};
@@ -44,23 +44,25 @@ const hostConfig = {
 			delete newPropsCloned.children;
 		}
 	   	var df =  diff(oldPropsCloned,newPropsCloned);
-	   	console.log('prepareUpdate',{domElement,type,newProps,df});
+	   	if(df){
+	   		console.log('prepareUpdate',{element,type,newProps,df});
+	   	}
 	   return df;
 
 	},
-	commitUpdate(domElement, updatePayload, type, oldProps, newProps) {
+	commitUpdate(element, updatePayload, type, oldProps, newProps) {
 		var {children,...restOldProps} = oldProps;
 		var {children,...restNewProps} = newProps;
 		var diffObj = diff(restOldProps,restNewProps);
-		var name = domElement.props.name;
-		var type = domElement.type;
+		var name = element.props.name;
+		var type = element.type;
 		if(type=='file'){
-			fs.writeFileSync(domElement.realPath,newProps.children||"");
+			fs.writeFileSync(element.realPath,newProps.children||"");
 		}
 		//console.log('commit update arguments',arguments);
 		console.log('commitUpdate',util.inspect({name,type,updatePayload,type,diffObj},{depth:null,colors:true}));
 	},
-	commitTextUpdate(textInstance, oldText, newText) {
+  commitTextUpdate(textInstance, oldText, newText) {
     console.log('commitTextUpdate',{textInstance,oldText,newText});
   },
   removeChild(parentInstance, child) {
@@ -74,16 +76,16 @@ const hostConfig = {
     //parentInstance.removeChild(child);
   },
 
-  appendChild: appendChild,
+  appendChild: appendChild(""),
 };
 const ReactReconcilerInst = ReactReconciler(hostConfig);
 export default {
-	render: (reactElement, domElement, callback) => {
-		if (!domElement._rootContainer) {
-	      domElement._rootContainer = ReactReconcilerInst.createContainer(domElement, false);
+	render: (reactElement, element, callback) => {
+		if (!element._rootContainer) {
+	      element._rootContainer = ReactReconcilerInst.createContainer(element, false);
 	    }
 
     // update the root Container
-    return ReactReconcilerInst.updateContainer(reactElement, domElement._rootContainer, null, callback);
+    return ReactReconcilerInst.updateContainer(reactElement, element._rootContainer, null, callback);
 	}
 }
