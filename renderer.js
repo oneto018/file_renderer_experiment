@@ -14,8 +14,12 @@ const hostConfig = {
 	getRootHostContext: () => {
 		return rootHostContext;
 	},
-	prepareForCommit: () => {},
-	resetAfterCommit: () => {},
+	prepareForCommit: () => {
+		console.log('prepareForCommit');
+	},
+	resetAfterCommit: () => {
+		console.log('resetAfterCommit');
+	},
 	getChildHostContext: () => {},
 	shouldSetTextContent: (type, props) => {
 		 return typeof props.children === 'string' || typeof props.children === 'number';;
